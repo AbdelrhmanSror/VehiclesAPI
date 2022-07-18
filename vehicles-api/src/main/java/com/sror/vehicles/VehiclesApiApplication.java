@@ -1,12 +1,8 @@
 package com.sror.vehicles;
 
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.DiscoveryClient;
-import com.netflix.discovery.shared.Application;
 import com.sror.vehicles.domain.manufacturer.Manufacturer;
 import com.sror.vehicles.domain.manufacturer.ManufacturerRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,8 +11,6 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
 
 /**
  * Launches a Spring Boot application for the Vehicles API,
@@ -32,9 +26,9 @@ public class VehiclesApiApplication {
         SpringApplication.run(VehiclesApiApplication.class, args);
     }
 
-    @Autowired
+  /*  @Autowired
     private DiscoveryClient discoveryClient;
-
+*/
     /**
      * Initializes the car manufacturers available to the Vehicle API.
      *
@@ -77,7 +71,7 @@ public class VehiclesApiApplication {
      */
     @Bean(name = "pricing")
     public WebClient webClientPricing(@Value("${pricing.endpoint}") String endpoint) {
-        List<Application> applications = discoveryClient.getApplications().getRegisteredApplications();
+       /* List<Application> applications = discoveryClient.getApplications().getRegisteredApplications();
         String url = "";
         for (Application application : applications) {
             List<InstanceInfo> applicationsInstances = application.getInstances();
@@ -88,8 +82,8 @@ public class VehiclesApiApplication {
                     System.out.println(name + ": " + url);
                 }
             }
-        }
-        return WebClient.create(url);
+        }*/
+        return WebClient.create(endpoint);
     }
 
 }
