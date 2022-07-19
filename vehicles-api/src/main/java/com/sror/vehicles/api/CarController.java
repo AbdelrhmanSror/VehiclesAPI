@@ -31,7 +31,9 @@ class CarController {
      */
     @GetMapping
     ResponseEntity<List<Car>> list() {
-        return new ResponseEntity<>(carService.list(), HttpStatus.OK);
+        ResponseEntity responseEntity= new ResponseEntity<>(carService.list(), HttpStatus.OK);
+        System.out.println(responseEntity.toString());
+        return responseEntity;
     }
 
     /**

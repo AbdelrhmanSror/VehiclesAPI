@@ -1,16 +1,19 @@
 package com.sror.vehicles;
 
+import com.sror.vehicles.domain.Condition;
+import com.sror.vehicles.domain.Location;
+import com.sror.vehicles.domain.car.Car;
+import com.sror.vehicles.domain.car.CarRepository;
+import com.sror.vehicles.domain.car.Details;
 import com.sror.vehicles.domain.manufacturer.Manufacturer;
 import com.sror.vehicles.domain.manufacturer.ManufacturerRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Launches a Spring Boot application for the Vehicles API,
@@ -36,13 +39,30 @@ public class VehiclesApiApplication {
      * @return the car manufacturers to add to the related repository
      */
     @Bean
-    CommandLineRunner initDatabase(ManufacturerRepository repository) {
+    CommandLineRunner initDatabase(ManufacturerRepository repository, CarRepository carRepository) {
         return args -> {
+            Car car = new Car();
+            car.setLocation(new Location(42.121185, -71.030151));
+            Details details = new Details();
+            Manufacturer manufacturer = new Manufacturer(101, "Chevrolet");
+            details.setManufacturer(manufacturer);
+            details.setModel("Impala");
+            details.setMileage(32280);
+            details.setExternalColor("white");
+            details.setBody("sedan");
+            details.setEngine("3.6L V6");
+            details.setFuelType("Gasoline");
+            details.setModelYear(2018);
+            details.setProductionYear(2018);
+            details.setNumberOfDoors(4);
+            car.setDetails(details);
+            car.setCondition(Condition.USED);
             repository.save(new Manufacturer(100, "Audi"));
             repository.save(new Manufacturer(101, "Chevrolet"));
             repository.save(new Manufacturer(102, "Ford"));
             repository.save(new Manufacturer(103, "BMW"));
             repository.save(new Manufacturer(104, "Dodge"));
+            carRepository.save(car);
         };
     }
 
@@ -51,39 +71,5 @@ public class VehiclesApiApplication {
         return new ModelMapper();
     }
 
-    /**
-     * Web Client for the maps (location) API
-     *
-     * @param endpoint where to communicate for the maps API
-     * @return created maps endpoint
-     */
-    @Bean(name = "maps")
-    public WebClient webClientMaps(@Value("${maps.endpoint}") String endpoint) {
-
-        return WebClient.create(endpoint);
-    }
-
-    /**
-     * Web Client for the pricing API
-     *
-     * @param endpoint where to communicate for the pricing API
-     * @return created pricing endpoint
-     */
-    @Bean(name = "pricing")
-    public WebClient webClientPricing(@Value("${pricing.endpoint}") String endpoint) {
-       /* List<Application> applications = discoveryClient.getApplications().getRegisteredApplications();
-        String url = "";
-        for (Application application : applications) {
-            List<InstanceInfo> applicationsInstances = application.getInstances();
-            for (InstanceInfo applicationsInstance : applicationsInstances) {
-                String name = applicationsInstance.getAppName();
-                if (name.equals(endpoint)) {
-                    url = applicationsInstance.getHomePageUrl();
-                    System.out.println(name + ": " + url);
-                }
-            }
-        }*/
-        return WebClient.create(endpoint);
-    }
 
 }
