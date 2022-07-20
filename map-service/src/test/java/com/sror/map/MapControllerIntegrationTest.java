@@ -1,13 +1,14 @@
-package com.sror.pricing;
+package com.sror.map;
 
-import com.sror.pricing.model.Price;
+import com.sror.map.model.Address;
+import com.sror.map.repository.AddressRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,32 +21,34 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-public class PricingControllerIntegrationTests {
-
+public class MapControllerIntegrationTest {
     @LocalServerPort
     private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private AddressRepository repository;
+
     @Test
-    public void getPrice() {
-        ResponseEntity<Price> response =
-                this.restTemplate.getForEntity("http://localhost:" + port + "/services/price?vehicleId=3", Price.class);
+    public void getLocationByLatAndLon() {
+        ResponseEntity<Address> response =
+                this.restTemplate.getForEntity("http://localhost:" + port + "/maps/?lat=42.121185&lon=-71.030151", Address.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         System.out.println(response.getBody());
     }
 
     @Test
-    public void getAllPrices() {
+    public void getAllLocations() {
         ResponseEntity<Object> response =
-                this.restTemplate.getForEntity("http://localhost:" + port + "/services/price/All", Object.class);
+                this.restTemplate.getForEntity("http://localhost:" + port + "/maps/Addresses", Object.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
-        for (Object price : ((List<Object>) response.getBody())) {
-            System.out.println(price);
+        for (Object address : ((List<Object>) response.getBody())) {
+            System.out.println(address);
 
         }
-    }
 
+    }
 
 }

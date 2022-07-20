@@ -1,8 +1,8 @@
 package com.sror.vehicles.api;
 
 
-import com.sror.vehicles.domain.car.Car;
-import com.sror.vehicles.service.CarService;
+import com.sror.vehicles.sql.domain.Car;
+import com.sror.vehicles.sql.service.CarSqlService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,22 +18,19 @@ import java.util.List;
 @RequestMapping("/cars")
 class CarController {
 
-    private final CarService carService;
+    private final CarSqlService carSqlService;
 
-    CarController(CarService carService) {
-        this.carService = carService;
+
+    public CarController(CarSqlService carSqlService) {
+        this.carSqlService = carSqlService;
     }
 
     /**
-     * Creates a list to store any vehicles.
-     *
      * @return list of vehicles
      */
     @GetMapping
     ResponseEntity<List<Car>> list() {
-        ResponseEntity responseEntity= new ResponseEntity<>(carService.list(), HttpStatus.OK);
-        System.out.println(responseEntity.toString());
-        return responseEntity;
+        return new ResponseEntity<>(carSqlService.list(), HttpStatus.OK);
     }
 
     /**
@@ -44,7 +41,7 @@ class CarController {
      */
     @GetMapping("/{id}")
     Car get(@PathVariable Long id) {
-        return carService.findById(id);
+        return carSqlService.findById(id);
     }
 
     /**
@@ -56,7 +53,7 @@ class CarController {
      */
     @PostMapping
     ResponseEntity<?> post(@Valid @RequestBody Car car) {
-        return new ResponseEntity<>(carService.save(car), HttpStatus.OK);
+        return new ResponseEntity<>(carSqlService.save(car), HttpStatus.OK);
     }
 
     /**
@@ -69,7 +66,7 @@ class CarController {
     @PutMapping("/{id}")
     ResponseEntity<?> put(@PathVariable Long id, @Valid @RequestBody Car car) {
         car.setId(id);
-        return ResponseEntity.ok(carService.save(car));
+        return ResponseEntity.ok(carSqlService.save(car));
     }
 
     /**
@@ -80,7 +77,7 @@ class CarController {
      */
     @DeleteMapping("/{id}")
     ResponseEntity<?> delete(@PathVariable Long id) {
-        carService.delete(id);
+        carSqlService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
