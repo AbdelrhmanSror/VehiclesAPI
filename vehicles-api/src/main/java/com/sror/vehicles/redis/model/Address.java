@@ -11,8 +11,8 @@ import java.io.Serializable;
  * Declares a class to store an address, city, state and zip code.
  */
 @RedisHash(value = "Address", timeToLive = 30)
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public class Address implements Serializable {
 
     @Id

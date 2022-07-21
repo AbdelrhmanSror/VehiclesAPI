@@ -1,5 +1,7 @@
 package com.sror.vehicles.sql.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
@@ -12,6 +14,7 @@ import javax.validation.constraints.NotNull;
  * the maps API.
  */
 @Embeddable
+@Schema(hidden = true)
 public class Location {
 
     @NotNull

@@ -16,10 +16,9 @@ import java.util.stream.Collectors;
  * location and price data when desired.
  */
 @Service
-public class CarSqlService {
+public class CarService {
 
     private final CarRepository repository;
-
 
     /**
      * for calling the map and price services
@@ -27,7 +26,7 @@ public class CarSqlService {
     private final MapsClient mapsClient;
     private final PriceClient priceClient;
 
-    public CarSqlService(CarRepository repository, MapsClient mapsClient, PriceClient priceClient) {
+    public CarService(CarRepository repository, MapsClient mapsClient, PriceClient priceClient) {
         this.repository = repository;
         this.mapsClient = mapsClient;
         this.priceClient = priceClient;
@@ -56,17 +55,9 @@ public class CarSqlService {
         } else {
             throw new CarNotFoundException();
         }
-        /**
-         * Note: The car class file uses @transient, meaning you will need to call
-         *   the pricing service each time to get the price.
-         */
 
         car.setPrice(priceClient.getPrice(id));
 
-        /**
-         * Note: The Location class file also uses @transient for the address,
-         * meaning the Maps service needs to be called each time for the address.
-         */
 
         car.setLocation(mapsClient.getAddress(car.getLocation()));
 

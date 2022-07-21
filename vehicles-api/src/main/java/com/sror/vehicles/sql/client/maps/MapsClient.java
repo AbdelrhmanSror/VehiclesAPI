@@ -47,10 +47,9 @@ public class MapsClient {
      */
     public Location getAddress(Location location) {
         Address addressFromCache = carRedisService.findAddress(location.getLat(), location.getLon());
-        if (addressFromCache != null) {
+        if (addressExistInCache(addressFromCache)) {
             mapper.map(Objects.requireNonNull(addressFromCache), location);
-            System.out.println("retrieving address from cache");
-            System.out.println(addressFromCache);
+            log.info("retrieving address from cache");
             return location;
         }
         try {
@@ -68,7 +67,7 @@ public class MapsClient {
             mapper.map(Objects.requireNonNull(address), location);
             address.setCompositeLatLong(location.getLat()+","+location.getLon());
             carRedisService.saveAddress(address);
-            System.out.println("retrieving address from server");
+            log.info("retrieving address from server");
 
 
 
@@ -77,5 +76,9 @@ public class MapsClient {
             log.warn("Map service is down");
             return location;
         }
+    }
+
+    private boolean addressExistInCache(Address addressFromCache) {
+        return addressFromCache != null;
     }
 }

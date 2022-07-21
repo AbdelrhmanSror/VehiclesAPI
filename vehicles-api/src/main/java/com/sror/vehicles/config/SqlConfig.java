@@ -1,4 +1,4 @@
-package com.sror.vehicles.sql.config;
+package com.sror.vehicles.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;

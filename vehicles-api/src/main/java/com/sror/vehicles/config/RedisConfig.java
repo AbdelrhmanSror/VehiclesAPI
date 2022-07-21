@@ -1,4 +1,4 @@
-package com.sror.vehicles.redis.config;
+package com.sror.vehicles.config;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;

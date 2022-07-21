@@ -2,9 +2,10 @@ package com.sror.vehicles.api;
 
 
 import com.sror.vehicles.sql.domain.Car;
-import com.sror.vehicles.sql.service.CarSqlService;
+import com.sror.vehicles.sql.service.CarService;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,21 +17,26 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/cars")
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "400", description = "this a bad request please review api documentation for more details"),
+        @ApiResponse(responseCode = "401", description = "due to security constraints ,your access request can not be authorized"),
+        @ApiResponse(responseCode = "500", description = "the server is down please make sure the car server is up and running")})
 class CarController {
 
-    private final CarSqlService carSqlService;
+    private final CarService carService;
 
 
-    public CarController(CarSqlService carSqlService) {
-        this.carSqlService = carSqlService;
+    public CarController(CarService carService) {
+        this.carService = carService;
     }
 
     /**
      * @return list of vehicles
      */
     @GetMapping
-    ResponseEntity<List<Car>> list() {
-        return new ResponseEntity<>(carSqlService.list(), HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    List<Car> list() {
+        return carService.list();
     }
 
     /**
@@ -41,7 +47,7 @@ class CarController {
      */
     @GetMapping("/{id}")
     Car get(@PathVariable Long id) {
-        return carSqlService.findById(id);
+        return carService.findById(id);
     }
 
     /**
@@ -52,8 +58,9 @@ class CarController {
      * @throws URISyntaxException if the request contains invalid fields or syntax
      */
     @PostMapping
-    ResponseEntity<?> post(@Valid @RequestBody Car car) {
-        return new ResponseEntity<>(carSqlService.save(car), HttpStatus.OK);
+    @ResponseStatus(value = HttpStatus.OK, reason = "car has been inserted")
+    Car post(@Valid @RequestBody Car car) {
+        return carService.save(car);
     }
 
     /**
@@ -64,9 +71,10 @@ class CarController {
      * @return response that the vehicle was updated in the system
      */
     @PutMapping("/{id}")
-    ResponseEntity<?> put(@PathVariable Long id, @Valid @RequestBody Car car) {
+    @ResponseStatus(value = HttpStatus.OK, reason = "car has been updated")
+    Car put(@PathVariable Long id, @Valid @RequestBody Car car) {
         car.setId(id);
-        return ResponseEntity.ok(carSqlService.save(car));
+        return carService.save(car);
     }
 
     /**
@@ -76,8 +84,8 @@ class CarController {
      * @return response that the related vehicle is no longer in the system
      */
     @DeleteMapping("/{id}")
-    ResponseEntity<?> delete(@PathVariable Long id) {
-        carSqlService.delete(id);
-        return ResponseEntity.noContent().build();
+    @ResponseStatus(value = HttpStatus.OK, reason = "car has been deleted")
+    void delete(@PathVariable Long id) {
+        carService.delete(id);
     }
 }

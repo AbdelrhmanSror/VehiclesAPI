@@ -50,7 +50,7 @@ public class PriceClient {
      */
     public String getPrice(Long vehicleId) {
         Price priceFromCache = carRedisService.findPrice(vehicleId);
-        if (priceFromCache != null) {
+        if (priceExistInCache(priceFromCache)) {
             System.out.println("retrieving price from cache");
             return String.format("%s %s", priceFromCache.getCurrency(), priceFromCache.getPrice());
         }
@@ -64,7 +64,7 @@ public class PriceClient {
                             .build()
                     )
                     .retrieve().bodyToMono(Price.class).block();
-            System.out.println("retrieving price from server");
+            log.info("retrieving price from server");
             carRedisService.savePrice(price);
             return String.format("%s %s", price.getCurrency(), price.getPrice());
 
@@ -72,5 +72,9 @@ public class PriceClient {
             log.error("Unexpected error retrieving price for vehicle {}", vehicleId, e);
         }
         return "(consult price)";
+    }
+
+    private boolean priceExistInCache(Price priceFromCache) {
+        return priceFromCache != null;
     }
 }

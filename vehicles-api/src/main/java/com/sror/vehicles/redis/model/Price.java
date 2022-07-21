@@ -2,9 +2,10 @@ package com.sror.vehicles.redis.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
-import org.springframework.data.annotation.Id;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -21,7 +22,7 @@ public class Price implements Serializable {
     private String currency;
     private BigDecimal price;
 
-    public Price(String currency, BigDecimal price, Long vehicleId) {
+    public Price(String currency, @NotNull BigDecimal price, Long vehicleId) {
         this.currency = currency;
         this.price = price;
         this.vehicleId = vehicleId;

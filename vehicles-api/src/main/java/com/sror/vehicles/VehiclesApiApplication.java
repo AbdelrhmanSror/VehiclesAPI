@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
  * Launches a Spring Boot application for the Vehicles API,
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Bean;
  */
 @SpringBootApplication
 @EnableEurekaServer
+@EnableJpaAuditing
 public class VehiclesApiApplication {
 
     public static void main(String[] args) {
@@ -24,18 +26,19 @@ public class VehiclesApiApplication {
     }
 
 
-
-
     /**
      * Initializes the car manufacturers available to the Vehicle API.
      *
-     * @param repository where the manufacturer information persists.
+     * @param manufacturerRepository where the manufacturer information persists.
      * @return the car manufacturers to add to the related repository
      */
     @Bean
-    CommandLineRunner initDatabase(ManufacturerRepository repository, CarRepository carRepository) {
+    CommandLineRunner initDatabase(ManufacturerRepository manufacturerRepository, CarRepository carRepository) {
         return args -> {
-            Utility.getListOfManufacturer().forEach(repository::save);
+            carRepository.deleteAllInBatch();
+            manufacturerRepository.deleteAllInBatch();
+
+            Utility.getListOfManufacturer().forEach(manufacturerRepository::save);
             Utility.getListOfCars().forEach(carRepository::save);
         };
     }
