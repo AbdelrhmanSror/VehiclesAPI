@@ -36,3 +36,6 @@ This is our actual REST controller for the application. This implements what a G
 
 ## AddressRepository
 Repository provides CRUD operation through MySql database.
+
+## AddressService
+service provides a layer above AddressRepository .
