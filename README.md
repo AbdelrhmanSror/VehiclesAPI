@@ -9,7 +9,7 @@ should be running at once for full operation. Further instructions are available
 
 - [Vehicles API](vehicles-api/README.md)
 - [Pricing Service](pricing-service/README.md)
-- [Boogle Maps](map-service/README.md)
+- [Map-Service](map-service/README.md)
 
 ## Dependencies
 
