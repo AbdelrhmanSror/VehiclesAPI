@@ -26,13 +26,13 @@ You can also import it as a Maven project on your preferred IDE and
 run the class `MapsApplication`.
 
 ## Address
-This declares the Address class, primarily just made of the private variables address, city, state and zip. Note that the latitude and longitude are not stored here - they come from the Vehicles API.
+This declares the Address entity class , primarily just made of the private variables address, city, state and zip. Note that the latitude and longitude are not stored here - they come from the Vehicles API. It represents an entity in the database that stores the data of address in MySql database.
 
-## BoogleMapsApplication
-This launches Boogle Maps as a Spring Boot application.
+## MapsApplication
+This launches Maps service as a Spring Boot application.
 
 ## MapsController
-This is our actual REST controller for the application. This implements what a GET request will respond with - in our case, since it is a Mock of a WebService, we are just responding with a random address from the repository.
+This is our actual REST controller for the application. This implements what a GET request will respond with - in our case, since it is a  WebService, we are just responding with a an address from the AddressService.
 
-## MockAddressRepository
-Repositories normally provide some type of data persistence while the web service runs. In this case, this Mock is simply choosing a random address from the ADDRESSES array defined in the file.
+## AddressRepository
+Repository provides CRUD operation through MySql database.
