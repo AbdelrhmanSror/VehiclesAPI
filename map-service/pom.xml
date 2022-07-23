@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.udacity</groupId>
-	<artifactId>boogle-maps</artifactId>
+	<artifactId>map-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>boogle-maps</name>
+	<name>map-service</name>
 	<description>Maps Service</description>
 	<properties>
 		<java.version>11</java.version>
