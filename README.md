@@ -1,9 +1,10 @@
-# Build the Backend System for a Car Website-VehiclesAPI-Project
+# Backend System for a Car Website-VehiclesAPI-Project
 
 Project repository implementing a Vehicles API using Java and Spring Boot that can communicate with separate location and pricing services.
 
 ## Features
 - REST API exploring the main HTTP verbs and features
+- Eureka Server.
 - Redis Cache in Memory
 - MySql relational Database
 - Custom API Error handling using ControllerAdvice
@@ -11,6 +12,7 @@ Project repository implementing a Vehicles API using Java and Spring Boot that c
 - HTTP WebClient
 - MVC Test
 - Automatic model mapping
+
 ## Instructions
 
 Check each component to see its details and instructions. Note that all three applications
