@@ -2,6 +2,14 @@
 
 Project repository implementing a Vehicles API using Java and Spring Boot that can communicate with separate location and pricing services.
 
+## Features
+REST API exploring the main HTTP verbs and features
+Hateoas
+Custom API Error handling using ControllerAdvice
+Swagger API docs
+HTTP WebClient
+MVC Test
+Automatic model mapping
 ## Instructions
 
 Check each component to see its details and instructions. Note that all three applications
