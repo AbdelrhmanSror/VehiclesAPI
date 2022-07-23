@@ -12,7 +12,7 @@ $ mvn clean package
 ```
 
 ```
-$ java -jar target/MapsApplication-0.0.1-SNAPSHOT.jar
+$ java -jar target/map-service-0.0.1-SNAPSHOT.jar
 ```
 
 The service is available by default on port `9191`. You can check it on the 
