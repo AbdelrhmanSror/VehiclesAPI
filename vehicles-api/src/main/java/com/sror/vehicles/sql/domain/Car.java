@@ -14,11 +14,10 @@ import java.time.LocalDateTime;
  */
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table
+@Table(name = "Car")
 public class Car {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     @CreatedDate

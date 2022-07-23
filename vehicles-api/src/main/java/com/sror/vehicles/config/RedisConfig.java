@@ -32,21 +32,6 @@ public class RedisConfig {
         RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(host, port);
         return new JedisConnectionFactory(config);
     }
-/*
-    @Bean
-    public RedisTemplate<Double, Price> redisTemplate(RedisConfig redisConfig) {
-        RedisTemplate<Double, Price> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConfig.jedisConnectionFactory());
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }
 
-    @Bean
-    public RedisTemplate<Long, Address> redisTemplate1(RedisConfig redisConfig) {
-        RedisTemplate<Long, Address> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConfig.jedisConnectionFactory());
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }*/
 
 }

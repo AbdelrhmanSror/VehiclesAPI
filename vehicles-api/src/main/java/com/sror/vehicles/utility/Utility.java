@@ -36,6 +36,7 @@ public class Utility {
         List<Car> cars = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Car car = new Car();
+            car.setId(i+ 1L);
             car.setLocation(LOCATIONS[i]);
             car.setDetails(listOfDetails().get(i));
             car.setCondition(Condition.USED);

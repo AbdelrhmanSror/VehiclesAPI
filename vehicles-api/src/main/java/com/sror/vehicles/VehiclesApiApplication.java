@@ -35,9 +35,8 @@ public class VehiclesApiApplication {
     @Bean
     CommandLineRunner initDatabase(ManufacturerRepository manufacturerRepository, CarRepository carRepository) {
         return args -> {
-            carRepository.deleteAllInBatch();
-            manufacturerRepository.deleteAllInBatch();
-
+           /* carRepository.deleteAllInBatch();
+            manufacturerRepository.deleteAllInBatch();*/
             Utility.getListOfManufacturer().forEach(manufacturerRepository::save);
             Utility.getListOfCars().forEach(carRepository::save);
         };
