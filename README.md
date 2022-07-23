@@ -4,6 +4,8 @@ Project repository implementing a Vehicles API using Java and Spring Boot that c
 
 ## Features
 - REST API exploring the main HTTP verbs and features
+- Redis Cache in Memory
+- MySql relational Database
 - Custom API Error handling using ControllerAdvice
 - springdoc-openapi documentation
 - HTTP WebClient
