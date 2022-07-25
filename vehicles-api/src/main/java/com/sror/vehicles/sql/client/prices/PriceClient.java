@@ -6,6 +6,8 @@ import com.sror.vehicles.redis.service.CarRedisService;
 import com.sror.vehicles.utility.Utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -14,13 +16,15 @@ import java.util.Objects;
 /**
  * Implements a class to interface with the Pricing Client for price data.
  */
+
 @Component
+@ConditionalOnProperty(prefix = "microservice", name = "price")
 public class PriceClient {
 
     private static final Logger log = LoggerFactory.getLogger(PriceClient.class);
 
-
-    private static final String serviceName = "pricing-service";
+    @Value("${microservice.price}")
+    private String serviceName;
 
     private final PeerAwareInstanceRegistry registry;
     /**
