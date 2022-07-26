@@ -26,7 +26,7 @@ public class PricingServiceApplication {
     public CommandLineRunner demo(PriceRepository repository) {
 
         return (args -> {
-            LongStream.range(1, 20).forEach(number -> {
+            LongStream.range(1, 6).forEach(number -> {
                 try {
                     repository.save(PricingUtility.getPrice(number));
 

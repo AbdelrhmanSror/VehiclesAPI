@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +39,10 @@ public class CarService {
      * @return a list of all vehicles in the CarRepository
      */
     public List<Car> list() {
-        return repository.findAll().stream().peek(car -> car.setLocation(mapsClient.getAddress(car.getLocation()))).collect(Collectors.toList());
+        return repository.findAll().stream().peek(car -> {
+            car.setLocation(mapsClient.getAddress(car.getLocation()));
+            car.setPrice(priceClient.getPrice(car.getId()));
+        }).collect(Collectors.toList());
     }
 
     /**
