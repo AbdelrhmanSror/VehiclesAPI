@@ -21,6 +21,37 @@ should be running at once for full operation.
 - [Vehicles API](vehicles-api/README.md)
 - [Pricing Service](pricing-service/README.md)
 - [Map-Service](map-service/README.md)
+- application will be availble on url:localhost:8761
+
+### we have two option to run the project ,you have the free to choose either of them.
+#### Running as java Applications
+ you must have Mysql server local instance and redis installed on your device, so you can run the application using this option.
+ intially the project is setuped to run as docker containers.to run the project as java application or jar files
+##### map-service
+ - uncomment this spring.datasource.jdbcUrl =jdbc:mysql://localhost:3306/map_api?&createDatabaseIfNotExist=true
+ - comment this #spring.datasource.jdbcUrl =jdbc:mysql://mysql/map_api?&createDatabaseIfNotExist=true
+ - uncomment eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+ - uncomment eureka.client.service-url.default-zone=http://localhost:8761/eureka/
+ - comment #eureka.client.serviceUrl.defaultZone=http://vehicle-service:8761/eureka/
+ - comment #eureka.client.service-url.default-zone=http://vehicle-service:8761/eureka/
+##### price-service
+ - uncomment this spring.datasource.url =jdbc:mysql://localhost:3306/price_api?&createDatabaseIfNotExist=true
+ - comment this #spring.datasource.url =jdbc:mysql://mysql/price_api?&createDatabaseIfNotExist=true
+ - uncomment eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+ - uncomment eureka.client.service-url.default-zone=http://localhost:8761/eureka/
+ - comment #eureka.client.serviceUrl.defaultZone=http://vehicle-service:8761/eureka/
+ - comment #eureka.client.service-url.default-zone=http://vehicle-service:8761/eureka/
+##### vehicles-api
+ - uncomment this spring.datasource.jdbcUrl =jdbc:mysql://localhost:3306/vehicle_api?&createDatabaseIfNotExist=true
+ - comment this #spring.datasource.jdbcUrl =jdbc:mysql://mysql/vehicle_api?&createDatabaseIfNotExist=true
+ - uncomment spring.redis.host=localhost
+ - comment #spring.redis.host=redis
+
+
+#### Running as Docker Containers
+intially the project is setuped to run as docker containers.
+you should have docker on you device.just run the docker compose file and whole application will run as docker containers.
+- docker-compose -f dockercompose.yaml up
 
 ## Dependencies
 
