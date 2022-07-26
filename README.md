@@ -7,6 +7,7 @@ Project repository implementing a Vehicles API using Java and Spring Boot that c
 - Eureka Server.
 - Redis Cache in Memory
 - MySql relational Database
+- Docker container.
 - Custom API Error handling using ControllerAdvice
 - springdoc-openapi documentation
 - HTTP WebClient
